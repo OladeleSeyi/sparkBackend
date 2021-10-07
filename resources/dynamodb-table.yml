@@ -1,0 +1,36 @@
+Resources:
+  RequestTable:
+    Type: AWS::DynamoDB::Table
+    DeletionPolicy: Retain
+    Properties:
+      TableName: ${self:custom.requestTableName}
+      AttributeDefinitions:
+        - AttributeName: id
+          AttributeType: S
+        - AttributeName: email
+          AttributeType: S
+        - AttributeName: amount
+          AttributeType: S
+        - AttributeName: depositId
+          AttributeType: S
+        - AttributeName: depositReference
+          AttributeType: S
+        - AttributeName: btcAmount
+          AttributeType: S
+        - AttributeName: networkFee
+          AttributeType: S
+        - AttributeName: totalBtcAmount
+          AttributeType: S
+        - AttributeName: safetyAmount
+          AttributeType: S
+        - AttributeName: buyOrderId
+          AttributeType: S
+        - AttributeName: sendAddress
+          AttributeType: S
+      KeySchema:
+        - AttributeName: id
+          KeyType: HASH
+        - AttributeName: depositId
+          KeyType: RANGE
+      # Set the capacity to auto-scale
+      BillingMode: PAY_PER_REQUEST
