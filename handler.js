@@ -1,7 +1,16 @@
 import { graphQLClient } from "./libs/graphQLClient";
 
 export const hello = async (event, context) => {
+  const query = `
+ { getBalances(cryptocurrency: naira_token){
+    id
+    confirmedBalance
+    cryptocurrency
+  }}
+  `;
 
+  const happy = await graphQLClient(query);
+  console.log("happy", happy);
   return {
     statusCode: 200,
     body: JSON.stringify({
@@ -9,6 +18,7 @@ export const hello = async (event, context) => {
         time: 1,
         copy: "Your function executed successfully!",
       })}`,
+      happy,
     }),
   };
 };

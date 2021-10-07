@@ -7,25 +7,7 @@ Resources:
       AttributeDefinitions:
         - AttributeName: id
           AttributeType: S
-        - AttributeName: email
-          AttributeType: S
-        - AttributeName: amount
-          AttributeType: S
         - AttributeName: depositId
-          AttributeType: S
-        - AttributeName: depositReference
-          AttributeType: S
-        - AttributeName: btcAmount
-          AttributeType: S
-        - AttributeName: networkFee
-          AttributeType: S
-        - AttributeName: totalBtcAmount
-          AttributeType: S
-        - AttributeName: safetyAmount
-          AttributeType: S
-        - AttributeName: buyOrderId
-          AttributeType: S
-        - AttributeName: sendAddress
           AttributeType: S
       KeySchema:
         - AttributeName: id
