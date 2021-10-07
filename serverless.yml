@@ -5,6 +5,14 @@ service: serverless-nodejs-starter
 package:
   individually: true
 
+custom:
+  # Our stage is based on what is passed in when running serverless
+  # commands. Or fallsback to what we have set in the provider section.
+  stage: ${opt:stage, self:provider.stage}
+  # Set the primary  table name here so we can use it while testing locally
+  requestTableName: ${self:custom.stage}-requestTable
+  
+
 plugins:
   - serverless-bundle 
   - serverless-offline
@@ -16,7 +24,25 @@ provider:
   stage: dev
   region: us-east-1
   lambdaHashingVersion: '20201221'
-
+  # under process.env.
+  environment:
+    requestTableName: ${self:custom.requestTableName}
+    BUYCOINS_PK: ${env:BUYCOINS_PK}
+    BUYCOINS_SK: ${env:BUYCOINS_SK}
+  
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:DescribeTable
+        - dynamodb:Query
+        - dynamodb:Scan
+        - dynamodb:GetItem
+        - dynamodb:PutItem
+        - dynamodb:UpdateItem
+        - dynamodb:DeleteItem
+      
+      Resource:
+        - "Fn::GetAtt": [RequestTable, Arn]
 
 functions:
   hello:
@@ -25,3 +51,9 @@ functions:
       - http:
           path: hello
           method: get
+
+resources:
+  # API Gateway Errors
+  - ${file(resources/api-gateway-errors.yml)}
+  # DynamoDB
+  - ${file(resources/dynamodb-table.yml)}
