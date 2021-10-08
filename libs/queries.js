@@ -17,7 +17,10 @@ const queries = {
       minBuy
     }
   }`,
-  destroyDeposit: ``,
+  checkTxnFee: `query getTxnFee($amount: BigDecimal!){getEstimatedNetworkFee(cryptocurrency: bitcoin, amount: $amount) {
+    estimatedFee
+    total
+  }}`,
 };
 
 const mutations = {

@@ -64,6 +64,12 @@ functions:
       - http:
           path: hook
           method: post
+  checkNetworkFee:
+    handler: functions/checkNetworkFee.main
+    events:
+      - http:
+          path: check
+          method: post
 
 resources:
   # API Gateway Errors
