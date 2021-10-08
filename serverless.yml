@@ -56,6 +56,12 @@ functions:
       - http:
           path: request
           method: post
+  webhook:
+    handler: functions/webhook.main
+    events:
+      - http:
+          path: hook
+          method: post
 
 resources:
   # API Gateway Errors
