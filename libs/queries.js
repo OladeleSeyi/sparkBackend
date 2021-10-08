@@ -57,6 +57,20 @@ const mutations = {
       status
     }
   }`,
+  sendCoins: `mutation sendCoins($address: String!, $amount: BigDecimal!){
+    send(cryptocurrency: bitcoin, address: $address, amount: $amount, chain: BTC) {
+      id
+      address
+      amount
+      cryptocurrency
+      fee
+      status
+      transaction {
+        txhash
+        id
+      }
+    }
+  }`,
 };
 
 export { queries, mutations };

@@ -66,3 +66,38 @@ export async function getRequest(ref) {
     console.log("error getting deposit request ", e);
   }
 }
+
+export async function getOrder(id) {
+  const params = {
+    TableName: process.env.requestTableName,
+    FilterExpression: "#o = :ooo ",
+    ExpressionAttributeNames: {
+      "#o": "orderId",
+    },
+    ExpressionAttributeValues: {
+      ":ooo": id,
+    },
+  };
+
+  try {
+    let request = await dynamoDbLib.call("scan", params);
+    return request.Items[0];
+  } catch (e) {
+    console.log("error getting deposit request ", e);
+  }
+}
+
+export async function onOrderConfirmation(request) {
+  const sendVariables = {
+    address: request.sendAddress,
+    amount: request.btcAmount,
+  };
+  const sendMutation = mutations.sendCoins;
+  try {
+    const sendOrder = await graphQLClient(sendMutation, sendVariables);
+    return sendOrder;
+  } catch (e) {
+    console.log("failure sending", e);
+    throw new Error("failure sending", e);
+  }
+}

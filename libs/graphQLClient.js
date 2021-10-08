@@ -30,5 +30,6 @@ export async function graphQLClient(query, variables) {
     return data;
   } catch (e) {
     console.log(JSON.stringify(e, undefined, 2));
+    throw new Error(e.message, e);
   }
 }
