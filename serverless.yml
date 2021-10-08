@@ -11,6 +11,7 @@ custom:
   stage: ${opt:stage, self:provider.stage}
   # Set the primary  table name here so we can use it while testing locally
   requestTableName: ${self:custom.stage}-requestTable
+  transactionTableName: ${self:custom.stage}-txnTable
 
 plugins:
   - serverless-bundle
@@ -42,6 +43,7 @@ provider:
 
       Resource:
         - "Fn::GetAtt": [RequestTable, Arn]
+        - "Fn::GetAtt": [TransactionTable, Arn]
 
 functions:
   hello:

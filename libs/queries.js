@@ -6,6 +6,17 @@ const queries = {
      cryptocurrency
    }}
    `,
+  getPrice: `{
+    getPrices(cryptocurrency: bitcoin, side: buy) {
+      id
+      buyPricePerCoin
+      sellPricePerCoin
+      cryptocurrency
+      expiresAt
+      status
+      minBuy
+    }
+  }`,
   destroyDeposit: ``,
 };
 
@@ -35,6 +46,17 @@ const mutations = {
             type
         }
     }`,
+  buyCoins: `mutation buyCoins($price: ID!, $amount: BigDecimal!){
+    buy(cryptocurrency:bitcoin, price: $price , coin_amount: $amount){
+      createdAt
+      filledCoinAmount
+      id
+      price {
+        minBuy
+      }
+      status
+    }
+  }`,
 };
 
 export { queries, mutations };

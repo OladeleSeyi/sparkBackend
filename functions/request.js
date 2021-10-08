@@ -18,7 +18,7 @@ export async function main(event, ctx) {
 
   const variables = {
     amount,
-    redirectLink: "http://localhost:3000/hello",
+    redirectLink: "https://localhost:3000/hello",
   };
 
   const depositMutation = mutations.createDeposit;
@@ -39,6 +39,8 @@ export async function main(event, ctx) {
       Item: {
         id,
         email: data.email,
+        orderId: data.orderId,
+        status: "Requested",
         amount,
         dollarAmount: data.dollarAmount,
         paymentLink,

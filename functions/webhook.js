@@ -1,11 +1,23 @@
+import { getRequest, onDeposit } from "./helper_functions";
+
 export async function main(event, ctx) {
   const data = JSON.parse(event.body);
 
-  console.log("req", data);
+  //   console.log("req", data);
 
   switch (data.payload.event) {
     case "deposit.success":
-      console.log("deposit success");
+      console.log("deposit success", data.payload.data.reference);
+      const request = await getRequest(data.payload.data.reference);
+      const buyOrder = await onDeposit(request);
+      return {
+        statusCode: 200,
+        body: JSON.stringify({
+          message: `Go Serverless v2.0! `,
+          request,
+          buyOrder,
+        }),
+      };
       break;
     case "deposit.failed":
       console.log("deposit failure");
@@ -20,11 +32,4 @@ export async function main(event, ctx) {
       // Unexpected event type
       console.log(`Unhandled event type ${event.type}.`);
   }
-
-  return {
-    statusCode: 200,
-    body: JSON.stringify({
-      message: `Go Serverless v2.0! `,
-    }),
-  };
 }
