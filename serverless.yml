@@ -23,7 +23,6 @@ provider:
   stage: dev
   region: us-east-1
   lambdaHashingVersion: "20201221"
-  variablesResolutionMode: "20210326"
   # under process.env.
   environment:
     requestTableName: ${self:custom.requestTableName}
@@ -51,6 +50,12 @@ functions:
       - http:
           path: hello
           method: get
+  request:
+    handler: functions/request.main
+    events:
+      - http:
+          path: request
+          method: post
 
 resources:
   # API Gateway Errors
