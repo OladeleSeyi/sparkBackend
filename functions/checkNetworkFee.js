@@ -13,6 +13,10 @@ export async function main(event, ctx) {
       statusCode: 200,
       body: JSON.stringify({
         message: "Success",
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Credentials": true,
+        },
         data: res,
       }),
     };
@@ -20,6 +24,10 @@ export async function main(event, ctx) {
     console.log("Error getting Txn Fee", e);
     return {
       statusCode: 500,
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Credentials": true,
+      },
       body: JSON.stringify({
         message: "Failure: An error occured fetching the Data",
       }),

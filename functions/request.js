@@ -58,6 +58,10 @@ export async function main(event, ctx) {
     await dynamoDbLib.call("put", params);
     return {
       statusCode: 200,
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Credentials": true,
+      },
       body: JSON.stringify({
         message: `Go Serverless v2.0! "Your function executed successfully!"`,
         data: {
@@ -69,6 +73,10 @@ export async function main(event, ctx) {
     console.log(e);
     return {
       statusCode: 500,
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Credentials": true,
+      },
       body: JSON.stringify({
         message: `Failing Serverless v2.0!`,
         error: e.message,
