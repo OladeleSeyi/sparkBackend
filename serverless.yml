@@ -52,24 +52,28 @@ functions:
       - http:
           path: hello
           method: get
+          cors: true
   request:
     handler: functions/request.main
     events:
       - http:
           path: request
           method: post
+          cors: true
   webhook:
     handler: functions/webhook.main
     events:
       - http:
           path: hook
           method: post
+          cors: true
   checkNetworkFee:
     handler: functions/checkNetworkFee.main
     events:
       - http:
           path: check
           method: post
+          cors: true
 
 resources:
   # API Gateway Errors

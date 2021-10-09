@@ -74,6 +74,28 @@ const mutations = {
       }
     }
   }`,
+  createProLimitOrder: `mutation proOrder($btcmount: BigDecimal!, price: BigDecimal! ){
+    mutation {
+      postProLimitOrder(pair: btc_ngnt, quantity: $btcAmount, price: $price, side: buy, timeInForce: good_til_cancelled) {
+        id
+        pair
+        price
+        side
+        status
+        timeInForce
+        orderType
+        fees
+        filled
+        total
+        initialBaseQuantity
+        initialQuoteQuantity
+        remainingBaseQuantity
+        remainingQuoteQuantity
+        meanExecutionPrice
+        engineMessage
+      }
+    }
+  }`,
 };
 
 export { queries, mutations };

@@ -14,10 +14,10 @@ export async function main(event, ctx) {
   const id = nanoid(12);
 
   //  Create a link to deposit and send bands to
-  const { amount } = data;
+  const { amount, safetyAmount } = data;
 
   const variables = {
-    amount,
+    amount: safetyAmount,
     redirectLink: "https://localhost:3000/hello",
   };
 
@@ -60,7 +60,7 @@ export async function main(event, ctx) {
       statusCode: 200,
       body: JSON.stringify({
         message: `Go Serverless v2.0! "Your function executed successfully!"`,
-        req: {
+        data: {
           paymentLink,
         },
       }),

@@ -1,13 +1,16 @@
 import * as dynamoDbLib from "../libs/dynamoDbLib";
 import { graphQLClient } from "../libs/graphQLClient";
-import { mutations } from "../libs/queries";
+import { mutations, queries } from "../libs/queries";
 
 export async function onDeposit(request) {
   // update the status of the request from pending
+  const getQuery = queries.getPrice;
+  const newPrice = await graphQLClient(getQuery);
   const params = {
     TableName: process.env.requestTableName,
     Item: {
       ...request,
+      orderId: newPrice.getPrices[0].id,
       status: "Ordered",
     },
   };
@@ -20,8 +23,7 @@ export async function onDeposit(request) {
   const buyMutation = mutations.buyCoins;
 
   const buyVariables = {
-    price:
-      "QnV5Y29pbnNQcmljZS1mYjcwZWI5ZC01YmIxLTRmNjUtODhjNy00YmZhOTA1OTczY2Q=",
+    price: newPrice.getPrices[0].id,
     amount: request.totalBtcAmount,
   };
 

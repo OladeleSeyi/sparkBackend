@@ -8,7 +8,7 @@ import {
 export async function main(event, ctx) {
   const data = JSON.parse(event.body);
 
-  //   console.log("req", data);
+  console.log("req", data);
 
   switch (data.payload.event) {
     case "deposit.success":
